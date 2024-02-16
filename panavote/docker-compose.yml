@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  nestjs-app:
+    build: 
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/?directConnection=true
+    depends_on:
+      - mongo
+  mongo:git config pull.ff only
+
+    image: mongo:4.4.6
+    ports:
+      - "27017:27017"
