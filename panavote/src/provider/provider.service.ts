@@ -1,23 +1,21 @@
+/* eslint-disable prettier/prettier */
+// provider.service.ts
 import { Injectable } from '@nestjs/common';
-import { Provider } from './provider.model';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Provider } from '../Schemas/provider.schemas';
 import { CreateProviderDto } from './dto/create-provider.dto';
 
 @Injectable()
 export class ProviderService {
-  private providers: Provider[] = [];
+  constructor(@InjectModel(Provider.name) private providerModel: Model<Provider>) {}
 
-  async createProvider(
-    createProviderDto: CreateProviderDto,
-  ): Promise<Provider> {
-    const newProvider: Provider = {
-      id: Math.random().toString(),
-      ...createProviderDto,
-    };
-    this.providers.push(newProvider);
-    return newProvider;
+  async createProvider(createProviderDto: CreateProviderDto): Promise<Provider> {
+    const newProvider = new this.providerModel(createProviderDto);
+    return newProvider.save();
   }
 
   async findAllProviders(): Promise<Provider[]> {
-    return this.providers;
+    return this.providerModel.find().exec();
   }
 }
