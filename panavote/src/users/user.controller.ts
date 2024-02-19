@@ -15,6 +15,6 @@ export class UserController {
 
     @Get()
     async findAllUsers(): Promise<User[]> {
-        return this.userService.findAllUsers(); // Corrected method name here
+        return this.userService.findAllUsers();
     }
 }
