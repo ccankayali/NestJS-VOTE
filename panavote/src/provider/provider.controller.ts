@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Controller, Get, Post, Body } from "@nestjs/common";
-import { ProviderService } from "./provider.service";
-import { CreateProviderDto } from "./create-provider.dto"; // Import the missing CreateProviderDto class
+import { ProviderService } from "../provider/provider.service"; 
+import { CreateProviderDto } from "../dto/create-provider.dto";
 
 @Controller('providers')
 export class ProviderController {
@@ -13,7 +13,7 @@ export class ProviderController {
     }
 
     @Get()
-    async getProviders() {
-        return await this.providerService.getProviders();
+    async findAllProviders(): Promise<Provider[]> {
+        return await this.providerService.findAllProviders();
     }
 }
