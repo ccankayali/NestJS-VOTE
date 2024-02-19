@@ -1,7 +1,8 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Get, Post, Body } from "@nestjs/common";
+import { Controller, Get, Post, Body, } from "@nestjs/common";
 import { ProviderService } from "../provider/provider.service"; 
-import { CreateProviderDto } from "../dto/create-provider.dto";
+import { CreateProviderDto } from "./dto/create-provider.dto";
+import { Provider } from "./provider.model";
 
 @Controller('providers')
 export class ProviderController {
