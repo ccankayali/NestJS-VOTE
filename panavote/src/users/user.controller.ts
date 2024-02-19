@@ -2,6 +2,7 @@
 import { Body, Controller, Post, Get} from "@nestjs/common";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UserService } from "./user.service";
+import { User } from "./user.module";
 
 /* eslint-disable prettier/prettier */
 @Controller('users')
