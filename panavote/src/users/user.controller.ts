@@ -1,21 +1,20 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Post, Get} from "@nestjs/common";
+import { Body, Controller, Post, Get } from "@nestjs/common";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UserService } from "./user.service";
-import { User } from "./user.module";
+import { User } from "../Schemas/user.schema"; // Make sure the path is correct
 
-/* eslint-disable prettier/prettier */
 @Controller('users')
 export class UserController {
     constructor(private readonly userService: UserService) {}
 
     @Post()
-    async createUser(@Body() createUSerDto: CreateUserDto) {
-        return await this.userService.createUser(createUSerDto);
+    async createUser(@Body() createUserDto: CreateUserDto): Promise<User> {
+        return this.userService.createUser(createUserDto);
     }
 
     @Get()
     async findAllUsers(): Promise<User[]> {
-        return await this.userService.findAllUser();
+        return this.userService.findAllUsers(); // Corrected method name here
     }
 }

@@ -1,24 +1,15 @@
 /* eslint-disable prettier/prettier */
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
-import * as bcrypt from 'bcrypt';
+import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
+import { UserController } from './user.controller';
+import { UserService } from './user.service';
+import { UserSchema } from '../Schemas/user.schema';
 
-@Schema()
-export class User extends Document {
-    @Prop({ required: true })
-    username: string;
-
-    @Prop({ required: true })
-    password: string;
-
-    @Prop({ required: true })
-    email: string;
-}
-
-export const userSchema = SchemaFactory.createForClass(User);
-
-userSchema.pre('save', async function(next) {
-  if (!this.isModified('password')) return next();
-  this.password = await bcrypt.hash(this.password, 12);
-  next();
-});
+@Module({
+  imports: [
+    MongooseModule.forFeature([{ name: 'User', schema: UserSchema }])
+  ],
+  controllers: [UserController],
+  providers: [UserService],
+})
+export class UserModule {}
